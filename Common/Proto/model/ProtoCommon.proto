@@ -1,0 +1,227 @@
+package com.sporger.server.proto.model;
+
+//消息类型
+enum MessageType {
+    //登录系统0-49
+    LOGIN_VALIDATE = 1; //验证
+	LOGIN_VALIDATE_RECONNECT = 2;//断线重连验证
+	NOTIFY_BE_KICKED_OFF = 3;//通知被踢掉
+    //主城50-99
+    //角色系统100-149
+    CHARACTER_ATTRIBUTE = 100;
+    REQ_WEAR_EQUIP = 101; //申请穿戴装备
+    REQ_UNINSTALL_EQUIP = 102; //申请卸载装备
+    NOTIFY_CHARACTER_CURRENCY = 103; //角色货币更新
+	NOTIFY_CHARACTER_LEVEL_UP = 104;//通知角色升级
+
+    //背包系统150-199
+    REQ_EQUIP_ATTRS = 150; //请求装备属性数据
+    REQ_SELL_ITME = 151; //请求出售物品
+    REQ_USE_ITEM = 152; //请求使用物品
+    REQ_EQUIP_START_UP = 153; //请求装备升星
+	REQ_DRAW_REWARD = 154;	//装备抽奖
+
+    //任务系统200-225	
+	REQ_DAILY_MISSION_LIST = 200;//请求任务列表
+	REQ_DAILY_MISSION_REWARD = 201;//请求领取任务奖励
+
+	//剧情引导225 -249
+	REQ_TUTORIAL_INFO= 225;//	请求引导数据
+	REQ_SAVE_TUTORIAL = 226;// 请求保存当前引导步数
+	REQ_SAVE_TRIGGER_TUTORIAL = 227;//请求保存当前触发引导类型
+	REQ_SAVE_CAREER_PLOT= 228;//请求保存生涯剧情id
+	
+    //运动数据系统250-299
+    //日志系统300-349
+    //朋友圈350-399
+	
+	REQ_PLAYER_FRIENDS = 350;//获取玩家好友列表
+	REQ_FRIEND_STATE = 351;//获取好友当前状态
+	REQ_FRIEND_DETAILED = 352;//获取好友详细信息
+	REQ_ATTENTION_PLAYER = 353;//关注玩家
+	NOTIFY_PLAYER_ATTENTION = 354;//通知有玩家关注
+	REQ_JOIN_GAME = 355;	//申请加入对战
+	REQ_VISIT_GAME = 356;	//申请观战 
+	REQ_FRIEND_MESSAGE = 357;//申请离线消息
+	REQ_DELECT_FRIEND_MESSAGE = 358;//删除聊天记录
+	REQ_FRIENDS_RELATION = 359;//申请玩家关联数据
+	REQ_SEARCH_PLAYER = 360;//搜索玩家
+	REQ_PLAYER_BASE_INFO = 361;//获取玩家基础数据
+
+    //其它
+    REQ_ENTER_MAP = 400; //请求进入地图
+    ENTER_MAP = 401; //主角进入地图
+    PLAYER_GOIN_INSTANCE = 402; //玩家进入副本地图
+    PLAYER_EXIT_INSTANCE = 403; //玩家退出副本地图
+    SYNC_PLAYER_INSTANCE_POS = 404; //同步玩家副本位置
+    REQ_SERVER_TIME = 405; //获取服务器时间
+    HEARTBEAT = 406; //
+
+
+
+    //匹配相关
+    REQ_MATCHING = 407; //请求匹配
+    REQ_CANCEL_MATCHING = 408; //请求取消匹配
+    NOTIFY_MATCHING_RESULT = 409; //通知匹配结果,返回人员信息、房主，成功弹出所有人员信息，并请求玩家确认进入,失败返回错误码
+    REQ_ENTER_PRE_SCENE = 410; //玩家点击确认进入预备场景
+    NOTIFY_PLAYER_READY_ENTER_PRE_SCENE = 411; //通知玩家准备进入预备场景
+    NOTIFY_PERMITE_ENTER_PRE_SCENE = 412; //通知进入预备场景,并分配roomid
+    REQ_SELECT_SCENE = 413; //房主选择比赛场景
+    NOTIFY_CHANGE_SCENE = 414; //通知场景选择更新
+    REQ_READY = 415; //比赛选手准备确认
+    NOTIFY_READY = 416; //通知选手准备确认
+    NOTIFY_CHANGE_ROOM_OWNER = 417; //通知更换房主
+    NOTIFY_START_RACE = 420; //所有人发送ENTER_MAP后,服务器通知开始比赛，包括彩虹跑
+
+
+    NOTIFY_CAREER_RUN_END = 421; //通知生涯跑结束,发玩家奖励
+    REQ_FREE_RUN_END = 422; //请求自由跑结束
+    NOTIFY_PLAYER_REACH = 423; //通知所有客户端某某玩家到达终点
+    NOTIFY_OUTDOOR_PVP_RESULT = 424; //通知竞速赛结束，发各玩家奖励情况
+    NOTIFY_ITEM_PVP_RESULT = 425; //通知道具赛结束，发各玩家奖励情况
+	REQ_PLAYER_LIST = 426;//获取副本玩家列表
+	REQ_NEW_PLAYER_LIST_SIMPLE_INFO = 427;//获取掉线后新加入玩家列表简要信息
+	NOTIFY_CONFIRM_MATCHING_TIME_OUT = 428;//通知所有客户端有人未确认匹配，确认的继续匹配，未确认的不再匹配 
+    NOTIFY_LEVEL_STAR_END = 429; //通知生涯跑结束,发玩家奖励
+	REQ_ENTER_CAREER_MAP = 430;//请求进入生涯地图
+	
+	
+	
+	//聊天相关450-500
+	//实时语音450-460	
+	REQ_REALTIME_VOICE = 450;//请求实时语音
+	REQ_CANCEL_REALTIME_VOICE = 451;//取消实时语音请求
+	REQ_ACCEPT_REALTIME_VOICE = 452;//接受或拒绝实时语音，或者超时
+	REQ_HANGUP_REALTIME_VOICE = 453;//挂断实时语音
+	NOTIFY_REALTIME_VOICE_REQ = 454;//通知玩家实时语音请求
+	NOTIFY_REALTIME_VOICE_REQ_FAILURE = 455;//通知玩家实时语音请求失败
+	NOTIFY_PLAYER_JOIN_REALTIME_VOICE_ROOM = 456;//通知有玩家进入语音房间
+	NOTIFY_CANCEL_REALTIME_VOICE_REQ = 457;//通知对方玩家取消语音请求
+	NOTIFY_PLAYER_LEAVE_REALTIME_VOICE_ROOM = 458;//通知有玩家离开语音房间
+	
+	
+    //秘境寻宝 501-550
+	
+    REQ_ENTER_FAM = 501; //请求进入秘境寻宝活动
+    REQ_ENTER_FAM_MAP = 502; //请求进入秘境寻宝副本地图 
+	REQ_OPEN_TREASURE_BOX = 503;//打开宝箱
+	//REQ_QUERY_TREASURE_EXIST = 504;//查询宝箱是否存在
+	NOTIFY_BOX_AND_ITEM_LIST = 505;//通知宝箱和道具列表
+	NOTIFY_OPEN_TREASURE_BOX = 506;//服务器通知各客户端某宝箱被打开
+	REQ_PICK_OPEN_TREASURE_BOX_ITEM = 507;//请求获得打开宝箱的道具
+	NOTIFY_PICK_OPEN_TREASURE_ITEM = 508;//服务器通知各客户端某道具被拾取
+	REQ_DISCARD_OPEN_TREASURE_BOX_ITEM = 509;//请求丢弃道具
+	NOTIFY_SPAWN_ORDINARY_BOX = 510;//通知刷新普通宝箱
+	NOTIFY_SPAWN_ITEM_AND_BOX = 511;//通知刷新道具和道具宝箱
+ 	NOTIFY_SPAWN_MP_ORDINARY_BOX = 512;//通知刷新普通多人宝箱   
+	NOTIFY_OPEN_MP_ORDINARY_BOX_STAND_POS = 513;//通知普通多人宝箱站位被挖取
+	NOTIFY_RESTORE_MP_ORDINARY_BOX_STAND_POS = 514;//通知普通多人宝箱站位还原
+	
+	
+	NOTIFY_ACTIVITY_END = 518; //通知活动结束
+
+	//迷宫 551-600
+	REQ_MAZE_MATCHING = 551;//迷宫匹配
+	NOTIFY_MAZE_MATCHING_RESULT = 552;//返回迷宫匹配结果
+	REQ_MAZE_CANCEL_MATCHING = 553;//取消迷宫匹配
+	NOTIFY_MAZE_WAIT_COUNT_DOWN = 554;//进入场景后等待其它玩家倒计时
+	NOTIFY_MAZE_START_GAME_COUNT_DOWN = 555;//开始迷宫游戏倒计时
+	NOTIFY_MAZE_START_GAME = 556;//开始迷宫游戏
+	NOTIFY_MAZE_PLAYER_NOT_ENOUGH = 557;//通知玩家不足不能开始游戏
+	REQ_MAZE_DESTROY_DOOR = 558;//请求销毁门
+	NOTIFY_MAZE_DESTROY_DOOR = 559;//通知各客户端销毁门
+	NOTIFY_MAZE_SPAWN_DOOR = 560;//通知创建门
+	REQ_ENTER_FINISH_POINT = 562;//请求结束迷宫游戏
+	NOTIFY_FINISH_MAZE_GAME = 563;//通知各客户端游戏结束
+	NOTIFY_MAZE_CHARACTER_ENERGE = 564;//通知人物当前能量值
+	REQ_MAZE_PICK_ENERGE_ITEM = 565;//请求获取场景中能量块
+	NOTIFY_MAZE_SPAWN_ENERGE_ITEM = 566;//通知刷出能量块
+	NOTIFY_MAZE_PICK_ENERGE_ITEM = 567;//通知拾取能量块
+
+	//围观 601-700
+	NOTIFY_WATCH_RACE_FINISHED = 601;//围观结束
+
+
+	
+	//广场 701-800
+	REQ_ENTER_SQUARE = 701;//请求进入广场地图
+	REQ_HOT_SQUARE_CHAT_GROUP = 702;   //请求热门聊天室
+	REQ_CREATE_SQUARE_CHAT_GROUP = 703;//请求create聊天室
+	NOTIFY_ADVERTISEMENT = 704;//推送公告
+	REQ_ENTER_SQUARE_CHAT_GROUP = 705;//请求进入聊天室
+	NOTIFY_ENTER_SQUARE_CHAT_GROUP = 706;//通知进入聊天室
+	REQ_SQUARE_CHAT_INFO = 707;//发送聊天消息
+	NOTIFY_SQUARE_CHAT_INFO = 708;//聊天消息推送
+	REQ_CLOSE_SQUARE_CHAT_GROUP = 709;//关闭自己创建的聊天室
+	REQ_EXIT_SQUARE_CHAT_GROUP = 710;//退出聊天室
+	NOTIFY_CLOSE_CHAT_GROUP = 711;//推送关闭自己创建的聊天室
+	NOTIFY_EXIT_CHAT_GROUP = 712;//推送退出聊天室
+	REQ_SQUARE_INVITE_FRIEND = 713;//聊天室邀请好友
+	REQ_SQUARE_INVITE_AGREE_FRIEND = 714;//好友同意邀请进入聊天室
+	
+	//彩虹跑 801-850
+	REQ_RAINBOWRUN_MATCHING = 801;//彩虹跑匹配
+	NOTIFY_RAINBOWRUN_MATCHING_RESULT = 802;//返回彩虹跑匹配结果，成功则开始加载场景
+	REQ_RAINBOWRUN_CANCEL_MATCHING = 803;//取消彩虹跑匹配
+	//通知开始比赛的消息使用NOTIFY_START_RACE
+	REQ_RAINBOWRUN_CHANGE_TRACK = 804;//变换跑道
+	NOTIFY_RAINBOWRUN_CHANGE_TRACK = 805;//通知变换跑道
+	NOTIFY_RAINBOWRUN_CURRENT_INFO = 806;//通知当前比赛信息,比如人物喷涂面积
+	NOTIFY_RAINBOWRUN_GAMEOVER = 807;//通知彩虹跑结束
+	REQ_RAINBOWRUN_READY= 808;//彩虹跑请求确认
+	NOTIFY_RAINBOWRUN_READY = 809;//通知有玩家确认
+	NOTIFY_RAINBOWRUN_LOAD_SCENE = 810;//通知加载场景
+	
+	
+    LOCATION = 999; //位置
+	REQ_CHARACTER_STATUS = 1000;//上报人物状态 服务器不返回
+	NOTIFY_CHARACTER_STATUS = 1001;//服务器通知人物状态
+	REQ_MAZE_CHARACTER_STATUS = 1002;//迷宫上报人物状态 服务器不返回
+	REQ_CITY_CHARACTER_STATUS = 1003;//广场上报人物状态 服务器不返回
+	REQ_RAINBOW_RUN_CHARACTER_STATUS = 1004;//彩虹跑上报人物状态 服务器不返回
+
+    //生涯模式1000-1099
+    //竞速赛模式1100-1199
+    //道具赛模式1200-1299
+    //自由跑模式1300-1399
+    //健身房1400-1499
+    //比赛1500-1599
+	RUN_REPORT = 3000; //跑完的报告
+    REQ_RUN_BASE_INFO = 3001; //获取运动记录基本情况
+    REQ_PULL_RUN_RECORD = 3002; //获取运动记录
+    REQ_RUN_BEST_RECORD_LIST = 3003; //获取最好记录列表
+    REQ_RUN_RECORD_DETAIL = 3004; //获取运动记录详细情况
+	NOTIFY_SPORGER_CHANGE = 3005;//通知健康指数变化
+	REQ_WARM_BODY_FINISH = 3006;//热身完成上报
+	NOTIFY_RUN_REPORT = 3007;//跑步结束通知运动数据
+
+	//系统 通用
+
+	//通用奖励物品
+	NOTIFY_GET_REWARD = 5000;//通知获得奖励
+	NOTIFY_GM_LEVELUP = 5001;//通知通关
+
+    REQ_GM_COMMAND = 10000; //GM指令
+}
+
+//玩家当前状态
+enum PlayerState{
+    OFFLINE = 0;//离线
+	LEISURE = 1;//空闲状态
+	SPORTS = 2;	//比赛状态
+}
+
+//关注状态 1已关注 2被关注 3互相关注 4陌生人
+enum AttentionState{
+	CONCERNED = 0;	//已关注
+	BECONCERNED = 1;//被关注
+	MUTUALCONCERNED = 2;//互相关注
+	STRANGER = 3;	//陌生人
+}
+
+//玩家需要同步的状态
+enum CharacterState
+{
+	WALKING = 0;//行走
+	DIGGING = 1;//挖掘
+}

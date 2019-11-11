@@ -1,0 +1,131 @@
+package com.sporger.server.proto.model;
+import "model/ProtoCharacterAttribute.proto";
+
+message lat_and_long
+{
+	required float Latitude = 1;//纬度
+	required float longitude = 2;//经度
+}
+
+
+message run_report_in
+{  
+	required float TotalDistance = 1; //总距离，米为单位
+	required uint32 StartTime = 2; //开始时间 格林威治
+	required uint32 UseTime = 3; //总用时 秒
+	required uint32 Kcal = 4; //大卡
+	required float AverageSpeed = 5;//平均配速
+	required float MaxSpeed = 6;//最快配速
+	repeated float SpeedPerKm = 7; //每公里配速  
+	required uint32 StepCount = 8;//步数
+	repeated uint32 StepPerMin = 9; //每分钟步数
+	repeated lat_and_long LatandLong = 10;//经纬度 10米左右一次
+	required uint32 AltitudeChange = 11;//爬升
+	required uint32 AverageStep = 12;//平均步频
+	required uint32 MaxStep =13;//最快步频
+}
+
+//通知健康指数变化
+message notify_sporger_change_out
+{
+	optional sporger_info sporger = 1;
+}
+
+//获取运动记录基本情况
+message req_run_base_info_in{
+	
+}
+
+
+//运动记录基本情况
+message req_run_base_info_out
+{
+	required float totalDistance = 1;//总里程，单位米
+	required uint32 itemPVPRanking = 2;//道具赛排名
+}
+
+//获取运动记录
+message req_pull_run_record_in
+{
+	required uint32 page = 1;//分页，1为第一页
+}
+
+message run_record
+{
+	required uint64 id = 1;//记录id
+	required uint32 time = 2;//跑步开始时间
+	required float totalDistance = 3;//跑步里程
+	required float speed = 4;//配速 m/km
+	required float useTime = 5;//耗时
+}
+
+//获取运动记录
+message req_pull_run_record_out
+{
+	repeated run_record run_record_list = 1;//一段运动记录,最长为10条
+}
+
+//获取运动记录详细情况
+message req_run_record_detail_in
+{
+	required uint64 id = 1;//记录id
+}
+
+//获取运动记录详细情况
+message req_run_record_detail
+{
+	required uint64 id = 1;//记录id
+	required run_report_in run_record_detail = 2;//详细情况
+}
+
+//最好记录
+message run_best_record
+{
+	required uint32 runType = 1;//运动长度的类型，具体的公里数，比如3公里运动就是3
+	required uint32 runDistance = 2;//跑的距离，单位米
+	required uint32 time = 3;//跑步开始时间
+	required uint32 speed = 4;//配速，分钟/公里
+	required uint32 useTime = 5;//跑步用时，秒为单位
+}
+
+//最好记录列表
+message req_run_best_record_list_out
+{
+	repeated run_best_record run_best_record_list = 1;//最好记录列表
+}
+
+//请求自由跑结束
+message req_free_run_end_in
+{
+    required uint64 roomId = 1; //房间ID
+}
+
+message notify_run_report_out
+{
+	required run_report_in runReport = 1;//运动数据
+}
+//达成星级
+message notify_level_star_end_out
+{
+	required level_star_info levelStarInfo = 1;//星级数据 
+}
+
+//达成星级
+message notify_gm_levelup_out
+{
+	required uint32 levelId = 1;//关卡ID
+}
+
+//向服务器通知热身完成
+message req_warm_body_finish_in
+{
+	required uint32 MapId = 1;//地图id
+	required uint64 roomId = 2;//房间id
+}
+
+
+
+
+
+
+

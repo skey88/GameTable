@@ -1,0 +1,143 @@
+package com.sporger.server.proto.model;
+import "model/ProtoFriend.proto";
+ 
+ //推送公告
+message notify_advertisement { 
+	repeated string content = 1;//内容 
+}
+
+ 
+//请求进入地图 
+message req_enter_square_map_in { 
+
+}
+
+
+//进入地图 
+message req_enter_square_map_out {
+    required uint64 roomId = 1; //房间id 
+	required uint32 mapId = 2;//地图ID
+	repeated square_chat_group groupList = 3; //群列表   
+}
+
+
+// 群信息
+message square_chat_group
+{
+	required uint64 groupID = 1;//群ID
+	required uint32 type = 2;//类型 1 公开  2 加密
+	required string groupTitle = 3;//群标题
+	required uint32 chatNum = 4;//消息数量
+	optional uint32 newChatNum = 5;//新消息数量
+	optional string password = 6;//密码
+}
+
+ //请求热门聊天室
+message req_hot_square_chat_group_in { 
+
+}
+
+//热门聊天室
+message req_hot_square_chat_group_out {
+	repeated square_chat_group hotGroupList = 1; //群列表  
+}
+
+ //请求create聊天室
+message req_create_square_chat_group_in { 
+	required square_chat_group groupInfo = 1; //群 
+}
+
+//	   create聊天室
+message req_create_square_chat_group_out {
+	required square_chat_group groupInfo = 1; //群 
+}
+
+ 
+
+
+// 聊天信息
+message square_chat_Info
+{
+	required uint64 chatID = 1;//消息ID
+	required player_base_info playerInfo = 2;//玩家信息
+	required uint32 sendTime = 3; // 时间   
+	required string content = 4;//内容 
+} 
+
+// 发送聊天消息
+message req_square_chat_Info_in
+{ 
+	required string content = 1;//内容 
+	required uint64 groupID = 2;//群ID
+}
+
+// 聊天消息推送
+message notify_square_chat_Info
+{
+	required square_chat_Info chatInfo = 1;
+}
+
+
+// 请求进入聊天室
+message req_enter_square_chat_group_in { 
+	required uint64 groupID = 1;//群ID
+}
+
+//进入聊天室
+message req_enter_square_chat_group_out {
+	required square_chat_group groupInfo = 1; //群 
+	repeated square_chat_Info chatInfo = 2;
+	repeated player_base_info playerInfo = 3;//玩家信息
+}
+
+//  推送玩家进入聊天室
+message notify_enter_player_square_chat
+{
+	required uint64 groupID = 1;//群ID
+	repeated player_base_info playerInfo = 2;//玩家信息
+}
+ 
+// 关闭聊天室
+message req_close_square_chat_group_in
+{ 
+
+}
+ 
+// 退出聊天室
+message req_exit_square_chat_group_in
+{ 
+
+}
+
+// 关闭聊天室推送
+message notify_close_square_chat_group
+{ 
+
+}
+ 
+// 退出聊天室推送
+message notify_exit_square_chat_group
+{ 
+	required string playerId = 1;//玩家ID
+}
+
+
+
+//  聊天室邀请好友
+message req_square_invite_friend_in
+{ 
+	required string playerId = 1;//玩家ID
+	required uint64 groupID = 2;//群ID 
+}
+//  聊天室邀请好友同意
+message req_square_invite_agree_friend_in
+{ 
+	required uint32 inviteId = 1; // 邀请Id
+	required uint32 agree = 2; // 1.同意 0拒绝  
+} 
+
+
+
+
+
+

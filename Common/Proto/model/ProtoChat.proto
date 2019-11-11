@@ -1,0 +1,70 @@
+package com.sporger.server.proto.model;
+
+message player_chat_base_info{
+	required string playerId = 1; //玩家ID
+	required string headIconId = 2;//头像id
+	required string playerName = 3;//玩家昵称
+}
+
+//请求实时语音
+message req_realtime_voice_in{
+	repeated string playerId =1;//玩家id
+}
+
+message req_realtime_voice_out{
+	required string channelId = 1;//房间id
+}
+
+//取消请求语音
+message req_cancel_realtime_voice_in{
+	required string channelId = 1;//房间id
+}
+
+//接受或拒绝实时语音，或者超时 
+message req_accept_realtime_voice_in{
+	required uint32 state =1;// 状态： 1接受；2拒绝；3超时
+	required string channelId = 2;//房间id
+}
+
+
+//挂断实时语音
+message req_hangup_realtime_voice_in{
+	required string channelId = 1;//房间id	
+}
+
+
+//通知玩家有实时语音请求
+message notify_realtime_voice_req{
+	required player_chat_base_info player = 1;//发起玩家信息
+	required string channelId = 2;//房间id
+}
+
+
+//通知玩家语音请求结果
+message notify_realtime_voice_req_failure{
+	required string channelId = 1;//房间id
+}
+
+
+//通知有玩家进入语音房间
+message notify_player_join_realtime_voice_room{
+	required player_chat_base_info player = 1;//玩家信息 
+}
+
+
+//通知对方玩家取消语音请求
+message notify_cancel_realtime_voice_req{
+	required player_chat_base_info player = 1;//玩家信息 
+	required string channelId = 2;//房间id	
+}
+
+
+//通知有玩家离开语音房间
+message notify_player_leave_realtime_voice_room{
+	required player_chat_base_info player = 1;//玩家信息	
+}
+
+
+
+
+

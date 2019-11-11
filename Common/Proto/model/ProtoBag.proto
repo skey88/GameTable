@@ -1,0 +1,89 @@
+package com.sporger.server.proto.model;
+
+message game_item_info
+{
+	required uint32 itemId = 1;		//物品id
+	required uint32 number = 2;		//数量
+	required uint32 time = 3;		//获得时间
+}
+
+
+message game_item_detail_info{
+	required game_item_info item = 1; //物品数据
+}
+
+
+//出售物品
+message req_sell_item_in
+{
+	required uint32 itemId = 1;	//物品id
+	required uint32 itemType = 2;//物品类型
+	required uint32 number = 3; //出售数量
+}
+
+message req_sell_item_out
+{
+
+}
+
+//使用物品
+message req_use_item_in
+{
+	required uint32 itemId = 1;	//物品id
+	required uint32 number = 2; //使用数量
+}
+
+message req_use_item_out{
+
+}
+
+message star_up_cost_materials
+{
+	required uint32 itemId = 1;//物品Id
+}
+
+
+
+
+//申请货架抽奖免费剩余时间
+message req_show_draw_info_in{							
+
+}
+
+message req_show_draw_info_out
+{
+	required uint32 oneStarGolTime = 1;
+	required uint32 oneStarDiamondtime = 2;
+	required uint32 twoStarGoldTime = 3;
+	required uint32 twoStarDiamondTime = 4;
+	required uint32 threeStarGoldTime = 5;
+	required uint32 threeStarDiamondTime = 6;
+	required uint32 fourStarGoldTime = 7;
+	required uint32 fourStarDiamondTime = 8;
+	required uint32 fiveStarGoldTime = 9;
+	required uint32 fiveStarDiamondTime = 10;
+}
+
+//申请抽奖
+message req_draw_reward_in
+{
+	required uint32 Id = 1;		//抽奖货架Id
+	required uint32 star = 2;   //抽奖星级
+}
+
+message req_draw_reward_out
+{
+	required game_item_detail_info equip = 1;//装备数据
+}
+
+message item_simple_info
+{
+	required uint32 itemId = 1;//物品ID
+	required uint32 itemCount = 2;//物品数量
+}
+
+//通用奖励物品
+message notify_get_reward_out
+{
+	repeated item_simple_info itemList = 1;//物品列表
+}

@@ -1,0 +1,33 @@
+package com.sporger.server.proto.model;
+
+message	daily_mission_base_info{
+	required uint32 missionId = 1; //任务id
+	required int32 missionState = 2;//任务状态 1:进行中 2:已完成  3:已领取奖励
+	required int32 missionProgress = 3;//任务进度
+}
+
+
+//请求任务列表
+message req_daily_mission_list_out{
+	repeated daily_mission_base_info mission = 1;//任务列表
+}
+
+
+//请求任务奖励
+message req_daily_mission_reward_in{
+	required uint32 missionId = 1;//任务id
+}
+
+message req_daily_mission_reward_out{
+	required daily_mission_base_info mission = 1;//单个任务数据
+	optional int32 exp =2;//经验
+	optional int32 gold = 3;//金币
+	optional int32 diamond = 4;//钻石
+	optional uint32 equipId = 5;//装备id
+}
+
+
+//通知玩家任务完成
+message notify_daily_mission_finish{
+	required daily_mission_base_info mission =1;//单个任务数据
+}

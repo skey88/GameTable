@@ -1,0 +1,52 @@
+package com.sporger.server.proto.model;
+import "model/ProtoRunReport.proto";
+import "model/ProtoBag.proto";
+
+//通知生涯跑结束,发玩家奖励
+message notify_career_run_end_out
+{
+	required bool isWin = 1;//是否成功
+	required uint32 defeatRate = 2;//击败全国百分之多少的玩家，95% 用95表示 
+	required uint32 grade = 3;//评级
+	required uint32 starCount = 4;//当前关卡打成的所有星
+	repeated item_simple_info reward = 5;//普通关卡奖励 
+}
+
+//通知所有客户端某某玩家到达终点
+message notify_player_reach_out
+{
+	required string playerId = 1;//玩家Id
+}
+
+//竞速赛玩家奖励
+message outdoor_pvp_player_reward
+{
+	required uint32 index = 1;//排名
+	required string playerId = 2;//玩家ID
+	required uint32 time = 3;//完成时间
+	required uint32 exp = 4;//经验
+	required uint32 glory = 5;//荣誉值
+	required bool isComplete = 6;//是否完成
+}
+
+//通知竞速赛结束，发各玩家奖励情况
+message notify_outdoor_pvp_result_out
+{
+	repeated outdoor_pvp_player_reward plyaerReward = 1;//各玩家奖励
+}
+
+//道具赛玩家奖励
+message item_pvp_player_reward
+{
+	required uint32 index = 1;//排名
+	required string playerId = 2;//玩家ID
+	required uint32 time = 3;//完成时间,秒为单位
+	//.....
+}
+
+
+//通知道具赛结束，发各玩家奖励情况
+message notify_item_pvp_result_out
+{
+	repeated item_pvp_player_reward plyaerReward = 1;//各玩家奖励
+}

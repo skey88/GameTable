@@ -1,0 +1,17 @@
+package com.sporger.server.proto.model;
+
+//登录
+message login_validate_in
+{  
+	required string session = 1;//会话控制
+}
+//断线重线验证
+message login_validate_reconnect_in
+{  
+	required string session = 1;//会话控制
+}
+
+message login_validate_reconnect_out
+{  
+	required bool isSuccess = 1;//是否成功
+}

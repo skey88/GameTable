@@ -1,0 +1,98 @@
+package com.sporger.server.proto.model;
+import "model/ProtoBag.proto";
+//迷宫匹配
+message req_maze_matching_in
+{
+	required uint32 mapId = 1;//地图ID
+}
+
+message req_maze_matching_out
+{
+	required uint64 matchingID = 1;//匹配线程ID
+}
+
+//返回迷宫匹配结果
+message notify_maze_matching_result_out
+{
+	required bool isSuc = 1;//是否成功
+	required uint64 roomID = 2;//房间ID
+	required uint32 finishPointId = 3;//终点id
+}
+
+//取消迷宫匹配
+message req_maze_cancel_matching_in
+{
+	required uint64 matchingID = 1;//房间ID
+}
+
+//进入场景后等待其它玩家倒计时
+message notify_maze_wait_count_down_out
+{
+	required uint32 timeLeft = 1;//剩余时间
+}
+
+//请求销毁门
+message req_maze_destroy_door_in
+{
+	required uint32 spawnId = 1;//门的出生点ID
+	required uint64 roomId = 2;//房间ID
+}
+
+message req_maze_destroy_door_out
+{
+	required uint32 spawnId = 1;//门的出生点ID
+}
+
+//通知各客户端销毁门
+message notify_maze_destroy_door_out
+{
+	required uint32 spawnId = 1;//门的出生点ID
+}
+
+//通知创建门
+message notify_maze_spawn_door_out
+{
+	required uint32 spawnId = 1;//门的出生点ID
+}
+
+//请求结束迷宫游戏
+message req_enter_finish_point_in
+{
+	required uint64 roomID = 1;//房间ID
+}
+
+//通知各客户端游戏结束
+message notify_finish_maze_game_out
+{
+	required bool isSuccess = 1;//是否成功
+	repeated  item_simple_info itemList = 2;//奖励物品
+}
+
+//通知人物当前能量值
+message notify_maze_character_energe_out
+{
+	required int32 energeValue = 1;//能量数量
+}
+
+//请求获取场景中能量块
+message req_maze_pick_energe_item_in
+{
+	required int32 spawnId = 1;//能量出生点ID
+}
+
+message req_maze_pick_energe_item_out
+{
+	required int32 spawnId = 1;//能量出生点ID
+}
+
+//通知刷出能量块
+message notify_maze_spawn_energe_item_out
+{
+	repeated  int32 spawnId = 1;//能量出生点ID
+}
+
+//通知拾取能量块
+message notify_maze_pick_energe_item_out
+{
+	required int32 spawnId = 1;//能量出生点ID
+}

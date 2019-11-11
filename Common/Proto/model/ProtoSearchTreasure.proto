@@ -1,0 +1,161 @@
+package com.sporger.server.proto.model;
+
+//打开宝箱
+message req_open_treasure_box_in
+{
+	required uint32 spawn_point_id = 1;//宝藏出生点ID或者多人宝箱挖取点
+	required uint64 roomId = 2;//房间ID
+}
+
+message req_open_treasure_box_out
+{
+	required uint32 spawn_point_id = 1;//宝藏出生点ID或者多人宝箱挖取点
+	required bool isSuccess = 2;//是否成功
+}
+
+
+//场景道具信息
+message scene_item_info
+{
+	required uint32 spawn_point = 1;//出生点ID
+	required uint32 item_type = 2;//道具类型
+}
+//道具宝箱信息
+message scene_box_info
+{
+	required uint32 spawn_point = 1;//出生点ID
+	required uint32 box_type = 2;//宝箱类型
+}
+
+//多人宝箱站位状态
+enum StandPointState
+{
+	ACTIVE = 1;//激活
+	DEACTIVE = 2;//非激活
+}
+
+//多人普通宝箱信息
+message mp_ordinary_box_info
+{
+	required uint32 spawn_point = 1;//多人宝箱出生点ID
+	required uint32 standPosCount = 2;//站位数目
+	repeated StandPointState standPointStateList = 3;//站位激活状态
+}
+
+
+message notify_box_and_item_list_out
+{
+	repeated uint32 ordinary_box_spawn_point_list = 1;//宝箱出生点列表
+	repeated scene_box_info item_box_spawn_point_list = 2;//道具宝箱出生点列表
+	repeated scene_item_info item_spawn_point_list = 3;//道具出生点列表
+	repeated mp_ordinary_box_info mp_ordinary_box_info_list = 4;//多人普通宝箱信息
+}
+
+message notify_spawn_ordinary_box_out
+{
+	repeated uint32 ordinary_box_spawn_point_list = 1;//宝箱出生点列表
+}
+
+message notify_spawn_item_and_box_out
+{
+	repeated scene_box_info item_box_spawn_point_list = 1;//道具宝箱出生点列表
+	repeated scene_item_info item_spawn_point_list = 2;//道具出生点列表
+}
+
+message notify_spawn_mp_ordinary_box_out
+{
+	repeated mp_ordinary_box_info mp_ordinary_box_info_list = 1;//多人普通宝箱信息
+}
+
+
+//服务器通知各客户端某宝箱被打开
+message notify_open_treasure_box_out
+{
+	required uint32 spawn_point_id = 1;//宝藏出生点ID
+}
+//请求获得打开宝箱的道具
+message req_pick_open_treasure_box_item_in
+{
+	required uint32 spawn_point_id = 1;//道具出生点ID
+	required uint64 roomId = 2;//房间ID
+}
+
+message req_pick_open_treasure_box_item_out
+{
+	required fam_item_bar_item_info item_info = 1;//道具信息
+}
+
+
+//服务器通知各客户端某道具被拾取
+message notify_pick_open_treasure_item_out
+{
+	required uint32 spawn_point_id = 1;//道具出生点ID
+}
+
+
+//请求进入秘境寻宝活动
+message req_enter_fam_in {
+     
+}
+
+//进入秘境寻宝活动
+message req_enter_fam_out {
+    required uint32 mapId = 1; //寻宝场景id 
+    required uint64 roomId = 2; //房间id 
+    required uint32 state  = 3; //活动是否开启  0为未开启 1为开启
+    required string timescale = 4; //活动时间
+}
+
+//请求进入秘境寻宝副本地图 
+message req_enter_fam_map_in {
+    required uint64 roomId = 1; //房间id 
+}
+
+
+//进入秘境寻宝副本地图 
+message req_enter_fam_map_out {
+    //内容待定
+	required uint32 cutType = 1; //分割类型
+	repeated fam_map_info mapInfo = 2; //小地图ID列表
+	repeated fam_item_bar_item_info famItemBarItemInfo = 3;//持有道具列表
+	required string channelId = 4;//语音房间id
+}
+
+//秘境寻宝副本地图信息
+message fam_map_info {
+    required uint32 mapId = 1; //小地图ID
+    repeated uint32 mapIndex = 2; //小地图索引信息列表
+    required uint32 direction  = 3; //小地图方向
+}
+//秘境道具栏上道具信息
+message fam_item_bar_item_info
+{
+	required uint32 itemId = 1;//物品ID
+	required uint32 treasureBoxSpawnPoint = 2;//对应宝箱出生点ID
+	required uint32 slot = 3;//插槽位置
+}
+
+//请求丢弃道具
+message req_discard_open_treasure_box_item_in
+{
+	required uint32 slot = 1;//插槽位置
+	required uint64 roomId = 2;//房间ID
+}
+
+//丢弃道具回调
+message req_discard_open_treasure_box_item_out
+{
+	required uint32 slot = 1;//插槽位置
+}
+
+//通知普通多人宝箱站位被挖取
+message notify_open_mp_ordinary_box_stand_pos_out
+{
+	required uint32 standPos = 1;//多人宝箱站立点
+}
+
+//通知普通多人宝箱站位还原
+message notify_restore_mp_ordinary_box_stand_pos_out
+{
+	required uint32 standPos = 1;//多人宝箱站立点
+}

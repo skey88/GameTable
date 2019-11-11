@@ -1,0 +1,86 @@
+package com.sporger.server.proto.model;
+import "model/ProtoPlayer.proto";
+//彩虹跑匹配
+message req_rainbowrun_matching_in
+{
+	required uint32 mapId = 1;//地图ID
+	required uint32 gameType =2;//比赛类型  1：团队  2：个人
+	required uint32	time =3;//时间 
+	required uint32 people =4;//人数	
+}
+
+message req_rainbowrun_matching_out
+{
+	required uint64 matchingID = 1;//匹配线程ID
+}
+
+//返回彩虹跑匹配结果
+message notify_rainbowrun_matching_result_out
+{
+	required bool isSuc = 1;//是否成功
+	required uint64 roomID = 2;//房间ID
+	repeated player_simple_info playerList = 3;//人员列表，按跑道顺序排列
+}
+
+//取消彩虹跑匹配
+message req_rainbowrun_cancel_matching_in
+{
+	required uint64 matchingID = 1;//房间ID
+}
+
+//变换跑道
+message req_rainbowrun_change_track_in
+{
+	required uint32 desTrack = 1;//要变换的跑道
+}
+
+message req_rainbowrun_change_track_out
+{
+	required uint32 desTrack = 1;//要变换的跑道
+}
+
+//通知变换跑道
+message notify_rainbowrun_change_track_out
+{
+	required string playerId = 1;//玩家ID
+	required uint32 desTrack = 2;//要变换的跑道
+}
+//彩虹跑人物当前信息
+message rainbowrun_cur_player_info
+{
+	required string playerId = 1;//玩家ID
+	required int32 area = 2;//喷涂面积
+}
+
+//通知当前比赛信息,比如人物喷涂面积
+message notify_rainbowrun_current_info_out
+{
+	repeated string rainbowrun_cur_player_info = 1;//人物当前信息
+}
+
+//结算信息
+message rainbow_game_result
+{
+	required string playerId = 1;//玩家ID
+	required int32 score = 2;//得分
+	required int32 rewardScore = 3;//奖励积分
+}
+
+//通知彩虹跑结束
+message notify_rainbowrun_gameover_out
+{
+	repeated rainbow_game_result result = 1;//奖励排名
+}
+
+//通知有玩家确认
+message notify_rainbowrun_ready_out
+{
+	required string playerId =1;//玩家ID
+}
+
+//通知加载彩虹跑场景
+message notify_rainbowrun_load_scene_out
+{
+	required uint64 roomID = 1;//房间ID
+	required string channelId = 2;//语音聊天房间id
+}

@@ -1,0 +1,33 @@
+package com.sporger.server.proto.model;
+
+message player_tutorial_info{
+	required uint32 tutorialStep = 1;//新手引导步数
+	repeated uint32 triggerTutorialSteps = 2;//触发引导数据
+	required uint32 careerPlotId = 3;//生涯剧情id
+}
+
+//请求新手引导数据
+message req_tutorial_info_out{
+	required player_tutorial_info tutorialInfo = 1;
+}
+
+//请求保存新手引导步数
+message req_save_tutorial_in{
+	required uint32 tutorialStep = 1;//引导步数
+}
+
+
+//请求保存触发引导
+message req_save_trigger_tutorial_in{
+	required uint32 triggerTutorialStep = 1;//触发引导
+}
+
+
+
+//请求保存剧情id
+message req_save_career_plot_in{
+	required uint32 careerPlotId = 1;//生涯剧情id
+}
+
+
+

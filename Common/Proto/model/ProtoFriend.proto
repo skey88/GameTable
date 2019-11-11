@@ -1,0 +1,134 @@
+package com.sporger.server.proto.model;
+import "model/ProtoBag.proto";
+import "model/ProtoPlayer.proto";
+import "model/ProtoLocation.proto";
+
+message friend_relation_info{
+	required string palyerId = 1;//玩家id
+	required uint32 attentionState = 2;//关注状态 1已关注 2被关注 3互相关注 4陌生人(对应枚举状态)
+}
+
+//玩家基本信息
+message player_base_info{
+	required string playerId = 1; //玩家ID
+	required string headIconId = 2;//头像id
+	required string playerName = 3;//玩家昵称
+	required uint32 level = 4;//等级
+	required uint32 sex = 5;//性别 男0女1不男不女2
+}
+
+//玩家状态
+message player_now_state_info{
+	required string playerId = 1;
+	required uint32 playerState = 2;//对应状态枚举 0.离线； 其他.在线
+	required uint32 mapId = 3;//当前地图id  根据mapId开头数字  1.生涯 ； 2.自由跑； 3竞技场； 4.秘境；  5.迷宫； 
+	required uint32 howLong = 4;//停留了多长时间(单位s)
+}
+
+//申请玩家关系数据
+message req_friends_relation_in{
+	
+}
+
+message req_friends_relation_out{
+	repeated friend_relation_info friendsRelation = 1;
+}
+
+//申请好友列表
+message req_player_friends_in{
+	required uint32 type = 1;//申请的列表类型 1.最近联系 2.好友 3.关注对象 4.粉丝
+	required uint32 pageIndex = 2;//分页，1为第一页
+	required uint32 pagesNumber = 3;//每页数量
+}
+
+message req_player_friends_out{
+	repeated player_base_info players = 1;//好友数据
+}
+
+//搜索玩家
+message req_search_player_in{
+	required string playerName = 1;//玩家名称
+}
+
+message req_search_player_out{
+	required player_base_info player = 1;
+}
+
+//关注其它玩家 取消关注
+message req_attention_player_in{
+	required string playerId = 1;//玩家id
+	required bool isAttention = 2;//是关注？
+}
+
+//通知玩家有粉丝关注
+message notify_player_attention{
+	required string playerId = 1;//关注我的玩家id
+}
+
+//申请玩家基本数据
+message req_player_base_info_in{
+	required string playerId = 1;
+}
+
+message req_player_base_info_out{
+	required player_base_info player = 1;//玩家基本数据
+}
+
+//获取玩家当前状态
+message req_friend_state_in{
+	repeated string playerIds = 1;
+}
+
+message req_friend_state_out{
+	repeated player_now_state_info state = 1; //玩家状态
+}
+
+//申请加入对战
+message req_join_game_in{
+	required string playerId = 1;//加入的目标玩家id
+}
+
+message req_join_game_out{
+	required uint32 mapId = 1;	//地图id
+	required uint64 roomId = 2;	//房间id
+}
+
+//申请观战
+message req_visit_game_in{
+	required string playerId = 1;//想观战的玩家id
+}
+
+message req_visit_game_out{
+	required uint32 mapId = 1;	//地图id
+	required uint64 roomId = 2;	//房间id
+	repeated player_simple_info players = 3;//玩家信息
+	repeated location_in player_init_location = 4;//玩家初始位置
+	required uint64 raceStartTime = 5;//比赛开始的服务器时间，1970年到现在的毫秒数
+}
+
+//申请玩家详细数据
+message req_player_detailed_in{
+	required string playerId = 1;
+}
+
+message req_player_detailed_out{
+	required player_base_info player = 1;//玩家基础数据
+	required string familyName = 2;//家族名称
+	required string runGroupName = 3;//跑团名称
+	required uint32 sporgerTotal = 4;//体游指数
+	repeated game_item_detail_info equip_info = 5;	//装备
+}
+
+//申请离线状态下的消息
+message req_friend_message_in{
+	
+}
+
+message req_friend_message_out{
+	optional string message = 1; //离线消息(palyerId+time+content)
+}
+
+//删除聊天记录
+message req_delect_friend_message_in{
+	required string playerId = 1;
+}

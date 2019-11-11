@@ -1,0 +1,89 @@
+package com.sporger.server.proto.model;
+import "model/ProtoPlayer.proto";
+
+//请求匹配
+message req_matching_in {
+    required uint32  gameType= 1; //是否是个人赛 1：团队  2：个人
+	required uint32  people= 2;  //人数
+	required uint32  distance = 3;//距离	
+}
+
+//匹配开始
+message req_matching_out {
+    required uint32 mapId = 1; //地图ID
+    required uint64 matchingId = 2; //服务器匹配线程号，用于取消匹配请求
+    required uint32 hiRange = 3; //健康指数区段下标，用于取消匹配请求
+}
+
+//请求取消匹配
+message req_cancel_matching_in {
+    required uint32 mapId = 1; //地图ID
+    required uint64 matchingId = 2; //服务器匹配线程号，用于取消匹配请求
+    required uint32 hiRange = 3; //健康指数区段下标，用于取消匹配请求
+}
+
+//取消回调
+message req_cancel_matching_handle{
+
+}
+
+//通知匹配结果,返回人员信息、房主，成功弹出所有人员信息，并请求玩家确认进入,失败返回错误码
+message notify_matching_result_out {
+    repeated player_simple_info players = 1; //其它玩家信息
+    required uint32 randomSceneId = 2; //随机出来的场景ID	
+}
+
+//玩家点击确认进入预备场景
+message req_enter_pre_scene_in {
+    required uint64 matchingId = 1; //服务器匹配线程号
+    required uint32 hiRange = 2; //健康指数区段下标
+}
+
+//分发准备信息
+message notify_player_ready_enter_pre_scene_out {
+    required string playerId = 1; //玩家ID
+}
+
+//获得房间ID,进入场景
+message notify_permite_enter_pre_scene_out {
+    required uint64 roomId = 1; //房间ID
+	required string channelId = 2;//语音房间Id
+}
+
+//房主选择比赛场景
+message req_select_scene_in {
+    required uint32 sceneId = 1; //场景ID
+    required uint64 roomId = 2; //房间ID
+}
+
+//通知更新比赛场景
+message notify_change_scene_out {
+    required uint32 sceneId = 1; //场景ID
+}
+
+//比赛选手准备
+message req_ready_in {
+    required uint64 roomId = 1; //房间ID
+}
+
+//分发准备信息
+message notify_ready_out {
+    required string playerId = 1; //玩家ID
+}
+
+//改变房主
+message notify_change_room_owner_out {
+    required string playerId = 1; //房主ID
+}
+
+//开始游戏
+message req_start_race_in {
+    required uint64 roomId = 1; //房间ID
+    required uint32 mapId = 2; //地图ID
+}
+
+//允许开始
+message req_start_race_out {
+    required uint32 mapId = 1; //地图ID
+}
+

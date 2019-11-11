@@ -1,0 +1,74 @@
+package com.sporger.server.proto.model;
+import "model/ProtoCommon.proto";
+
+
+//GPS位置
+message location_in {
+    optional float longitude = 1;
+    optional float latitude = 2;
+    required float distance = 3;
+    required uint64 timeStamp = 4;
+}
+
+
+message vector3
+{
+	required float x = 1;
+	required float y = 2;
+	required float z = 3;
+}
+
+message  vector2
+{
+	required float x = 1;
+	required float y = 2;
+}
+
+message character_status
+{
+	required string playerId = 1;//玩家ID
+	required vector3 position = 2;//位置
+	required vector3 velocity = 3;//速度
+	required CharacterState characterState = 4;//状态
+	required uint64 timeStamp = 5;//时间戳
+}
+
+//人物上报状态
+message character_status_in
+{
+	required uint64 roomId = 1;//房间ID
+	required vector3 position = 2;//位置
+	required vector3 velocity = 3;//速度
+	required CharacterState characterState = 4;//状态
+	required uint64 timeStamp = 5;//时间戳
+}
+
+//上报人物状态 服务器不返回
+message req_character_status_in
+{
+	required character_status_in chrStatus = 1;//人物状态
+}
+
+//迷宫上报人物状态 服务器不返回
+message req_maze_character_status_in
+{
+	required character_status_in chrStatus = 1;//人物状态
+}
+
+//广场上报人物状态 服务器不返回
+message req_city_character_status_in
+{
+	required character_status_in chrStatus = 1;//人物状态
+}
+
+//彩虹跑上报人物状态 服务器不返回
+message req_rainbow_run_character_status_in
+{
+	required character_status_in chrStatus = 1;//人物状态
+}
+
+//服务器通知玩家状态
+message notify_character_status_out
+{
+	repeated character_status statuslist = 1;//人物状态列表
+}

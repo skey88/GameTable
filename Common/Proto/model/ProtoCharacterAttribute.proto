@@ -1,0 +1,74 @@
+package com.sporger.server.proto.model;
+import "model/ProtoBag.proto";
+
+//人物角色属性
+message character_attribute_in {
+    required string userId = 1; //账号
+}
+
+message character_attribute_out {
+	optional sporger_info sporger = 1; //体游指数
+    optional int32 lv = 2;			   //等级
+    optional float strength = 3; 	   //道具赛体力
+    optional int32 pace = 4; 		   //基础配速
+    optional int32 gold = 5;		   //金币
+    optional int32 exp = 6;			   //经验
+    optional int32 diamond = 7;		   //钻石
+    optional int32 honour = 8;         //荣誉
+    optional int32 careerMapId = 9;    //保存生涯关卡
+    optional string userName = 10;     //账号名
+	repeated game_item_info bag = 11; //背包物品
+	repeated game_item_detail_info equips = 12;//装备
+	required uint32 skeletonType = 13;  //骨骼类型
+	repeated level_star_info levelStarInfo = 14; //生涯关卡星级
+    optional int32 sex = 15;         //性别
+    optional int32 cityId = 16;         //城市ID
+}
+
+message sporger_index {
+    optional int32 speed = 1; //速度指数
+    optional int32 endurance = 2; //耐力指数
+    optional int32 heartLung = 3; //心肺指数
+    optional int32 flexibility = 4; //柔韧指数
+    optional int32 strength = 5; //力量指数
+	optional int32 total = 6; //全部值
+}
+
+message sporger_info {
+	optional sporger_index sporgerIndex = 1; //体游指数
+    optional sporger_index sporgerDifferent = 2; //指数变化值
+	optional sporger_index SporgerMax = 3; //当前最大值			
+}
+
+message item_change_info
+{
+	required uint32 itemId = 1;//物品ID
+	required int32 itemCount = 2;//物品加减数量
+}
+
+//通知玩家货币和物品数量有变动
+message notify_character_currency
+{
+	optional int32 gold = 1;	//金币
+	optional int32 diamond = 2;//钻石
+	optional int32 exp = 3;//经验
+	repeated item_change_info itemList = 4;//物品
+}
+
+//装备装扮
+message character_equip_dress_in{
+	required uint32 itemId = 1;	//穿戴的装备Id
+	required uint32 uniqueId = 2;
+}
+
+//通知角色升级
+message notify_character_level_up{
+	required int32 level = 1;	//等级
+	required int32 exp = 2;		//经验值
+}
+//关卡星级
+message level_star_info{
+	required int32 levelId = 1;		//关卡ID
+	repeated int32 levelStarList = 2;	//关卡星级ID
+}
+

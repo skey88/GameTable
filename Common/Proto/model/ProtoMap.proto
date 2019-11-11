@@ -1,0 +1,56 @@
+package com.sporger.server.proto.model;
+
+//地图进入请求
+message req_enter_map_in {
+    required uint32 MapId = 1; //地图ID
+}
+
+message req_enter_map_out {
+    required uint32 MapId = 1; //地图ID
+    optional uint64 roomId = 2; //房间ID
+	required string channelId = 3;//语音房间ID
+}
+
+//进入地图
+message enter_map_in {
+    required uint32 mapId = 1; //地图Id
+    optional uint64 roomId = 2; //房间ID
+}
+
+message enter_map_out {
+    required uint32 mapId = 1; //地图Id
+}
+
+message notify_activity_end_out {
+	required uint32 remainTime = 1; //剩余时间
+}
+
+//npc玩家信息
+message npc_player_info
+{
+	required uint32 id = 1;//npc玩家ID，配置表里读取
+	repeated uint32 speed = 2;//每公里配速
+}
+
+//关卡玩家信息
+message rank_player_info
+{
+	required uint32 id = 1; // 玩家排名
+	required string userName = 2;  //玩家名字
+	required string time = 3;  //时间
+	required string userId = 4; // 玩家ID 
+}
+
+//请求进入生涯地图
+message req_enter_career_map_in
+{
+    required uint32 MapId = 1; //地图ID
+}
+
+message req_enter_career_map_out
+{
+    required uint32 MapId = 1; //地图ID
+    optional uint64 roomId = 2; //房间ID
+	repeated  npc_player_info npcPlayerInfo = 3;//npc玩家信息
+	repeated  rank_player_info rankPlayerInfo = 4;//rank玩家信息
+}

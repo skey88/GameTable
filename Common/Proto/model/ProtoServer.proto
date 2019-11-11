@@ -1,0 +1,12 @@
+package com.sporger.server.proto.model;
+
+//请求服务器时间
+message req_server_time_out
+{
+	required uint32 time = 1;//时间
+}
+
+message req_gm_command_in
+{
+	required string gmCommand = 1;//gm指令,详见http://139.196.51.117/svn/Document/程序文档/gm指令.xlsx
+}

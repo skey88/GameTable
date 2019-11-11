@@ -1,0 +1,71 @@
+package com.sporger.server.proto.model;
+import "model/ProtoBag.proto";
+
+/*message equip_slot_info
+{
+	required uint32 slot = 1;//装备插槽
+	required uint32 equipId = 2;//装备ID
+}
+
+message player_equip_info
+{
+	repeated equip_slot_info equipInfo = 1; //装备信息
+}
+*/
+message player_simple_info
+{  
+	required string playerId = 1; //玩家ID	
+	required string playerName = 2;//玩家昵称
+	required uint32 level = 3;//等级
+	required uint32 city = 4;//城市
+	required uint32 sex = 5;//女1男2
+	repeated uint32 equipIds = 6;//装备id
+	required uint32 skeletonType = 7;//骨骼类型
+	required bool isFollow = 8;//是否关注
+	required string headIcon = 9;//头像
+}
+
+//玩家进入
+message player_goin_instance_out 
+{
+	repeated player_simple_info player_info = 1;//玩家相关信息
+}
+
+//玩家退出
+message player_exit_instance_out
+{
+	repeated string playerId = 1;//玩家Id
+}
+//副本中位置同步信息
+message player_instance_syncinfo
+{
+	required string playerId = 1;//玩家ID
+	required uint32 distance = 2;//距离
+	required uint32 timestamp = 3;//时间戳
+}
+
+//玩家距离同步
+message sync_player_instance_pos_out
+{
+	repeated player_instance_syncinfo playersPosInfo= 1;//0到多个玩家在副本中位置同步信息
+}
+//获取副本玩家列表
+message req_player_list_in
+{
+	required uint32 roomId = 1; //房间ID
+	required uint32 mapId = 2;//地图ID
+}
+
+message req_player_list_out
+{
+	repeated string playerId = 1; //玩家ID列表
+}
+//获取掉线后新加入玩家列表简要信息
+message  req_new_player_list_simple_info_in
+{
+	repeated string playerId = 1;//玩家ID列表
+}
+message  req_new_player_list_simple_info_out
+{
+	repeated player_simple_info player_info = 1;//玩家相关信息
+}
